@@ -60,6 +60,12 @@
     <Compile Include="View\Record.xaml.cs">
       <DependentUpon>Record.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\SortField.cs" />
+    <Compile Include="View\SortFieldList.cs" />
+    <Resource Include="Images\searchIcon.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Resource>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -102,6 +108,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\cats.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

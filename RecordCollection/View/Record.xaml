@@ -9,7 +9,12 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
 
-    <StackPanel>
-        <TextBlock Text="{Binding ElementName=RecordView, Path=Source.Artist}"/>
+    <StackPanel DataContext="{Binding ElementName=RecordView}" Margin="10">
+        <Viewbox Width="75" Height="75" HorizontalAlignment="Left">
+                <Image Source="{Binding Source.CoverImage}"/>
+        </Viewbox>
+        <TextBlock Text="{Binding Source.Artist}"/>
+        <TextBlock Text="{Binding Source.Title}"/>
+        <TextBlock Text="{Binding Source.Year}"/>
     </StackPanel>
 </UserControl>

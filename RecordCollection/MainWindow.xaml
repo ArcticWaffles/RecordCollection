@@ -7,20 +7,53 @@
         xmlns:v="clr-namespace:RecordCollection.View"
         xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="350" Width="525"
+        SizeToContent="Width">
+
     <Window.DataContext>
-        <local:ViewModel />
+        <local:ViewModel/>
     </Window.DataContext>
     <Window.Resources>
-        <local:BindingConverter x:Key="BindingConverter" />
+        <ResourceDictionary>
+            <local:BindingConverter x:Key="BindingConverter" />
+            <v:SortFieldList x:Key="sortFields">
+                <v:SortField DisplayName="Title" 
+                         PropertyName="Title" />
+                <v:SortField DisplayName="Year" 
+                         PropertyName="Year" />
+                <v:SortField DisplayName="Artist" 
+                         PropertyName="Artist" />
+            </v:SortFieldList>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Images/searchIcon.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Window.Resources>
+    <ScrollViewer>
     <Grid>
-        <ItemsControl ItemsSource="{Binding Records}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <v:Record Source="{Binding}" />
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+        <DockPanel Margin="10">
+            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" >
+                <TextBlock Text="Sort by" VerticalAlignment="Center"/>
+                <ComboBox Width="100" Margin="6,0,0,0" x:Name="_sortField" SelectedIndex="0" ItemsSource="{StaticResource sortFields}"  
+                          DisplayMemberPath="DisplayName" SelectedValuePath="PropertyName" SelectionChanged="OnSort"/>
+                <CheckBox Margin="10,0,0,0" Content="Ascending" VerticalAlignment="Center" IsChecked="true" x:Name="_ascending" 
+                          Checked="OnSort" Unchecked="OnSort"/>
+                <Rectangle Fill="{StaticResource SearchIcon}" Width="15" Margin="20,0,0,0" />
+                <TextBox Margin="10,0,0,0" x:Name="_filterText" Width="120" TextChanged="OnFilter"/>
+            </StackPanel>
+            <ItemsControl ItemsSource="{Binding Records}" Margin="10">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="3"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <v:Record Source="{Binding}" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </DockPanel>
     </Grid>
+    </ScrollViewer>
 </Window>
